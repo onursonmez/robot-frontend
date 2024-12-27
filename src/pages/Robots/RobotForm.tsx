@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useRobots } from '../../context/RobotsContext';
 import { useDrawer } from '../../context/DrawerContext';
 import { Button } from '../../components/ui/Button';
-import { Robot } from '../../types';
+import { RobotType } from '../../types';
 
 interface RobotFormProps {
-  robot?: Robot;
+  robot?: RobotType;
 }
 
 export const RobotForm: React.FC<RobotFormProps> = ({ robot }) => {
@@ -43,7 +43,7 @@ export const RobotForm: React.FC<RobotFormProps> = ({ robot }) => {
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700">URL</label>
+        <label className="block text-sm font-medium text-gray-700">MQTT Username</label>
         <input
           type="url"
           value={formData.url}
@@ -51,6 +51,24 @@ export const RobotForm: React.FC<RobotFormProps> = ({ robot }) => {
           className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
           required
         />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">MQTT Password</label>
+        <input
+          type="url"
+          value={formData.url}
+          onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+          required
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">Robot Type</label>
+        <select className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2">
+        <option>PTK1350</option>
+        <option>PTK1000</option>
+        <option>-- Add New --</option>
+        </select>
       </div>
       <div className="flex justify-end space-x-2">
         <Button type="button" variant="secondary" onClick={closeDrawer}>

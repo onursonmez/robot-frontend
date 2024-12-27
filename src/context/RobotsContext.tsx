@@ -1,30 +1,39 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Robot } from '../types';
+import { RobotType } from '../types';
 import { useSocket } from './SocketContext';
 
 interface RobotsContextType {
-  robots: Robot[];
+  robots: RobotType[];
   loading: boolean;
   error: string | null;
-  createRobot: (robot: Omit<Robot, '_id'>) => void;
-  updateRobot: (robot: Robot) => void;
+  initialPoseState: { robot: RobotType | null; isInitialPoseSet: boolean };
+  setInitialPose: (robot: RobotType, isInitialPoseSet: boolean) => void;
+  createRobot: (robot: Omit<RobotType, '_id'>) => void;
+  updateRobot: (robot: RobotType) => void;
   deleteRobot: (id: string) => void;
 }
 
 const RobotsContext = createContext<RobotsContextType | undefined>(undefined);
 
 export const RobotsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [robots, setRobots] = useState<Robot[]>([]);
+  const [robots, setRobots] = useState<RobotType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { socket } = useSocket();
+  const [initialPoseState, setInitialPoseState] = useState<{
+    robot: Robot | null;
+    isInitialPoseSet: boolean;
+  }>({
+    robot: null,
+    isInitialPoseSet: false,
+  });
 
   useEffect(() => {
     if (!socket) return;
 
     socket.emit('findAllRobots', {});
 
-    socket.on('allRobots', (data: Robot[]) => {
+    socket.on('allRobots', (data: RobotType[]) => {
       setRobots(data);
       setLoading(false);
     });
@@ -34,12 +43,12 @@ export const RobotsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
   }, [socket]);
 
-  const createRobot = (robot: Omit<Robot, '_id'>) => {
+  const createRobot = (robot: Omit<RobotType, '_id'>) => {
     if (!socket) return;
     socket.emit('robotCreate', robot);
   };
 
-  const updateRobot = (robot: Robot) => {
+  const updateRobot = (robot: RobotType) => {
     if (!socket) return;
     socket.emit('robotUpdate', {id: robot._id, updateRobotDto: robot});
   };
@@ -49,9 +58,13 @@ export const RobotsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     socket.emit('robotRemove', id);
   };
 
+  const setInitialPose = (robot: RobotType, isInitialPoseSet: boolean) => {
+    setInitialPoseState({ robot, isInitialPoseSet });
+  };
+
   return (
     <RobotsContext.Provider
-      value={{ robots, loading, error, createRobot, updateRobot, deleteRobot }}
+      value={{ robots, loading, error, createRobot, updateRobot, deleteRobot, initialPoseState, setInitialPose }}
     >
       {children}
     </RobotsContext.Provider>

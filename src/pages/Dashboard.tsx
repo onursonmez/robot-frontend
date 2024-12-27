@@ -28,9 +28,8 @@ export const Dashboard: React.FC = () => {
  
   const activeMap = maps.find((map) => map.isActive);
   const activeGraph = graphs.find((graph) => graph.isActive && graph.mapId === activeMap?._id);
-  const activeRobots = robots.filter((robot) => activeMap?.robotTypes.includes(robot.robotType?._id || ''));
+  const activeRobots = robots.filter((robot) => activeMap?.robotTypes.includes(robot.type?._id || ''));
 
-  
   useEffect(() => {
     if (activeMap) {
       const savedData = loadMapData(activeMap._id, defaultMapData);
@@ -175,7 +174,7 @@ export const Dashboard: React.FC = () => {
 
             {/* Robots */}
             {activeRobots.map((robot) => (
-              <Robot key={robot._id} {...robot} onRobotClick={(id) => console.log("Robot clicked", id)} />
+              <Robot key={robot._id} robot={robot} />
             ))}
           </g>  
         </svg>

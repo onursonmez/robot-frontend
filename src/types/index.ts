@@ -1,27 +1,34 @@
-export interface Robot {
+export interface RobotType {
   _id: string;
   serialNumber: string;
-  url: string;
-  status: 'IDLE' | 'IN_PROGRESS' | 'MAINTENANCE';
-  connectionState: 'CONNECTED' | 'DISCONNECTED';
+  interfaceName: string;
+  version: string;
+  manufacturer: string;
+  jobId: string;
+  status: 'IDLE' | 'IN_PROGRESS' | 'MAINTENANCE' | 'CHARGING' | 'WAIT_FOR_CHARGE';
+  connection: RobotTypeConnection;
   state: any;
-  mqttClient: {
-    _id: string;
-    clientId: string;
-    username: string;
-    password: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-  robotType?: {
-    _id: string;
-    name: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  password: string;
+  type: any;
   createdAt: string;
   updatedAt: string;
+}
 
+interface RobotTypeConnection {
+  headerId: number,
+  timestamp: string,
+  version: string,
+  manufacturer: string,
+  serialNumber: string,
+  connectionState: 'ONLINE' | 'OFFLINE' | 'CONNECTIONBROKEN'
+}
+
+ export interface RobotProps {  
+  robot: RobotType;
+}
+
+export interface RobotDashboardFormProps {
+  robot?: RobotType;
 }
 
 export interface Map {

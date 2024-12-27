@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRobots } from '../context/RobotsContext';
 
 export function FindMousePoint() {
+  const { initialPoseState, setInitialPose } = useRobots();
   const [startPoint, setStartPoint] = useState(null);
   const [currentMousePoint, setCurrentMousePoint] = useState(null);
   const [currentAngle, setCurrentAngle] = useState(null);
@@ -16,6 +18,12 @@ export function FindMousePoint() {
       setStartPoint(null);
       setCurrentMousePoint(null);
       setCurrentAngle(null);
+
+      if(initialPoseState.robot && initialPoseState.isInitialPoseSet == true){
+        console.log(currentAngle);
+        initialPoseState.robot.state.agvPosition.theta = currentAngle;
+        setInitialPose(initialPoseState.robot, false);
+      }
     }
   };
 
@@ -36,7 +44,7 @@ export function FindMousePoint() {
     <div
       onClick={handleMouseClick}
       onMouseMove={handleMouseMove}
-      className={`${startPoint ? 'absolute top-0 right-0 left-0 bottom-0' : 'hidden'}`}
+      className={`${initialPoseState.robot && initialPoseState.isInitialPoseSet == true ? 'absolute top-0 right-0 left-0 bottom-0' : 'hidden'}`}
       style={{ cursor: "crosshair" }}
     >
       {startPoint && (
@@ -49,7 +57,7 @@ export function FindMousePoint() {
               left: (startPoint.x - 5),
               width: 10,
               height: 10,
-              backgroundColor: "red",
+              backgroundColor: "black",
               borderRadius: "50%",
             }}
           />
@@ -71,7 +79,7 @@ export function FindMousePoint() {
                   y1={startPoint.y}
                   x2={currentMousePoint.x}
                   y2={currentMousePoint.y}
-                  stroke="blue"
+                  stroke="black"
                   strokeWidth="2"
                   markerEnd="url(#arrowhead)"
                 />
@@ -84,7 +92,7 @@ export function FindMousePoint() {
                     refY="3.5"
                     orient="auto"
                   >
-                    <polygon points="0 0, 10 3.5, 0 7" fill="blue" />
+                    <polygon points="0 0, 10 3.5, 0 7" fill="black" />
                   </marker>
                 </defs>
               </svg>
@@ -97,23 +105,23 @@ export function FindMousePoint() {
                   left: startPoint.x - 100,
                   width: 200,
                   height: 200,
-                  border: "1px solid black",
+                  border: "2px solid black",
                   borderRadius: "50%",
                 }}
               >
                 {[...Array(12)].map((_, i) => {
                   const angle = (i * 30) * (Math.PI / 180); // Dereceyi radyana çevir
-                  const x = 100 + 90 * Math.cos(angle); // Dairenin yarıçapı 90
-                  const y = 100 + 90 * Math.sin(angle);
+                  const x = 100 + 80 * Math.cos(angle); // Dairenin yarıçapı 90
+                  const y = 100 + 80 * Math.sin(angle);
                   return (
                     <div
                       key={i}
                       style={{
                         position: "absolute",
-                        top: y - 10,
-                        left: x - 10,
-                        width: 20,
-                        height: 20,
+                        top: y - 20,
+                        left: x - 20,
+                        width: 40,
+                        height: 40,
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
@@ -132,7 +140,8 @@ export function FindMousePoint() {
                   position: "absolute",
                   top: currentMousePoint.y + 10, // Okun ucunun biraz altı
                   left: currentMousePoint.x + 10, // Okun ucunun biraz sağı
-                  backgroundColor: "white",
+                  backgroundColor: "black",
+                  color: "white",
                   padding: "2px 5px",
                   border: "1px solid black",
                   borderRadius: "3px",

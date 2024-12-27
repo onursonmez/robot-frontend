@@ -80,9 +80,6 @@ const GraphArea: React.FC<GraphAreaProps> = ({
       Math.pow(link.target.x - link.source.x, 2) +
       Math.pow(link.target.y - link.source.y, 2)
     );
-  
-    console.log("Line Length:", lineLength);
-
     return lineLength;
   }
 

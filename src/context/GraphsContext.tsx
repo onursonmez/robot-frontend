@@ -40,7 +40,6 @@ export const GraphsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   const updateGraph = (graph: Graph) => {
-    console.log("graph updated", graph);
     if (!socket) return;
     socket.emit('graphUpdate', graph);
   };
