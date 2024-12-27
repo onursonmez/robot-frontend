@@ -3,8 +3,8 @@ import { useMaps } from '../context/MapsContext';
 import { useGraphs } from '../context/GraphsContext';
 import { useRobots } from '../context/RobotsContext';
 import GraphArea from '../components/graph/index';
-import Robot from '../components/Robot';
-import { FindMousePoint } from '../components/FindMousePoint';
+import Robot from '../components/robot/Robot';
+import RobotPose from '../components/robot/RobotPose';
 
 const defaultMapData = {
   x: 0,
@@ -116,7 +116,7 @@ export const Dashboard: React.FC = () => {
         <div>Loading...</div>
       ) : (
       <>
-      <FindMousePoint />
+      <RobotPose />
       <div
        className='z-40'
         onWheel={handleWheel}

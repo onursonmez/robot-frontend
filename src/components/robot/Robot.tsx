@@ -1,7 +1,7 @@
 import React from "react";  
-import { useDrawer } from '../context/DrawerContext';
-import RobotDashboardForm from '../pages/Robots/RobotDashboardForm';
-import { RobotProps } from '../types';
+import { useDrawer } from '../../context/DrawerContext';
+import RobotDashboardForm from '../../pages/Robots/RobotDashboardForm';
+import { RobotProps } from '../../types';
 
 const Robot: React.FC<RobotProps> = ({robot}) => {
   const { openDrawer } = useDrawer();

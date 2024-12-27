@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useRobots } from '../context/RobotsContext';
+import { useRobots } from '../../context/RobotsContext';
 
-export function FindMousePoint() {
+export default function RobotPose() {
   const { initialPoseState, setInitialPose } = useRobots();
   const [startPoint, setStartPoint] = useState(null);
   const [currentMousePoint, setCurrentMousePoint] = useState(null);
@@ -20,7 +20,6 @@ export function FindMousePoint() {
       setCurrentAngle(null);
 
       if(initialPoseState.robot && initialPoseState.isInitialPoseSet == true){
-        console.log(currentAngle);
         initialPoseState.robot.state.agvPosition.theta = currentAngle;
         setInitialPose(initialPoseState.robot, false);
       }
