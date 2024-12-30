@@ -43,6 +43,7 @@ const GraphArea: React.FC<GraphAreaProps> = ({
     if (!originalNode) return;
 
     openDrawer(
+      'Node Form',
       <NodeForm
         node={originalNode}
         onUpdate={(updates) => {
@@ -60,7 +61,7 @@ const GraphArea: React.FC<GraphAreaProps> = ({
     const originalEdge = graph.edges.find(e => e.edgeId === link.edgeId);
     if (!originalEdge) return;
 
-    openDrawer(
+    openDrawer('Edge Form',
       <EdgeForm
         edge={originalEdge}
         nodes={graph.nodes}

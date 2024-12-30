@@ -1,14 +1,27 @@
-import React from "react";  
+import React, { useEffect } from "react";  
 import { useDrawer } from '../../context/DrawerContext';
 import RobotDashboardForm from '../../pages/Robots/RobotDashboardForm';
+import RobotInformationForm from '../../pages/Robots/RobotInformationForm';
 import { RobotProps } from '../../types';
+import { useRobots } from '../../context/RobotsContext';
 
 const Robot: React.FC<RobotProps> = ({robot}) => {
+  const { selectedRobot, setSelectedRobot } = useRobots();
   const { openDrawer } = useDrawer();
 
   const handleRobotClick = (robot: any) => {
-    openDrawer(<RobotDashboardForm robot={robot} />);
+    openDrawer('Robot Dashboard', <RobotDashboardForm robot={robot} />);
   };
+
+  useEffect(() => {
+    if (selectedRobot) {
+      openDrawer('Robot Information', <RobotInformationForm robot={selectedRobot} />);
+    }
+
+    return () => {
+      setSelectedRobot(null);
+    }
+  }, [selectedRobot]);
 
   return (  
     <g transform={`rotate(${robot.state?.agvPosition.theta || 0}, ${robot.state?.agvPosition.x}, ${robot.state?.agvPosition.y})`}>  

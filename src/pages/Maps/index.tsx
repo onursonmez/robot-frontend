@@ -29,11 +29,11 @@ export const Maps: React.FC = () => {
   ];
 
   const handleEdit = (map: typeof maps[0]) => {
-    openDrawer(<MapForm map={map} />);
+    openDrawer('Edit Map Form', <MapForm map={map} />);
   };
 
   const handleCreate = () => {
-    openDrawer(<MapForm />);
+    openDrawer('Add Map Form', <MapForm />);
   };
 
   return (

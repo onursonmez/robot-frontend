@@ -30,11 +30,11 @@ export const Graphs: React.FC = () => {
   ];
 
   const handleEdit = (graph: typeof graphs[0]) => {
-    openDrawer(<GraphForm graph={graph} />);
+    openDrawer('Edit Graph Form', <GraphForm graph={graph} />);
   };
 
   const handleCreate = () => {
-    openDrawer(<GraphForm />);
+    openDrawer('Add Graph Form', <GraphForm />);
   };
 
   return (

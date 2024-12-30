@@ -46,11 +46,11 @@ export const Robots: React.FC = () => {
   ];
 
   const handleEdit = (robot: typeof robots[0]) => {
-    openDrawer(<RobotForm robot={robot} />);
+    openDrawer('Edit Robot Form', <RobotForm robot={robot} />);
   };
 
   const handleCreate = () => {
-    openDrawer(<RobotForm />);
+    openDrawer('Add Robot Form', <RobotForm />);
   };
 
   return (

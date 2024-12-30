@@ -11,6 +11,8 @@ interface RobotsContextType {
   createRobot: (robot: Omit<RobotType, '_id'>) => void;
   updateRobot: (robot: RobotType) => void;
   deleteRobot: (id: string) => void;
+  selectedRobot: RobotType | null;
+  setSelectedRobot: (robot: RobotType | null) => void;
 }
 
 const RobotsContext = createContext<RobotsContextType | undefined>(undefined);
@@ -21,12 +23,13 @@ export const RobotsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [error, setError] = useState<string | null>(null);
   const { socket } = useSocket();
   const [initialPoseState, setInitialPoseState] = useState<{
-    robot: Robot | null;
+    robot: RobotType | null;
     isInitialPoseSet: boolean;
   }>({
     robot: null,
     isInitialPoseSet: false,
   });
+  const [selectedRobot, setSelectedRobot] = useState<RobotType | null>(null);
 
   useEffect(() => {
     if (!socket) return;
@@ -64,7 +67,18 @@ export const RobotsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   return (
     <RobotsContext.Provider
-      value={{ robots, loading, error, createRobot, updateRobot, deleteRobot, initialPoseState, setInitialPose }}
+      value={{ 
+        robots, 
+        loading, 
+        error, 
+        createRobot, 
+        updateRobot, 
+        deleteRobot, 
+        initialPoseState, 
+        setInitialPose,
+        selectedRobot,
+        setSelectedRobot,
+      }}
     >
       {children}
     </RobotsContext.Provider>
