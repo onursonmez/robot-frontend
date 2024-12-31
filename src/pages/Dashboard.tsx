@@ -116,6 +116,7 @@ export const Dashboard: React.FC = () => {
         <div>Loading...</div>
       ) : (
       <>
+      
       <RobotPose />
       <div
        className='z-40'

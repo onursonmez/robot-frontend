@@ -96,7 +96,10 @@ export const RobotDashboardForm: React.FC<RobotDashboardFormProps> = ({ robot })
                   <td className="px-4 py-2 font-semibold">Battery</td>
                   <td className="px-4 py-2 flex justify-end">
                       <div className="w-24 h-4 bg-gray-300 rounded-full overflow-hidden mr-2">
-                          <div className="h-full bg-green-500" style={{width: `${robot?.state.batteryState.batteryCharge}%`}}></div>
+                          <div 
+                            className={`h-full ${robot?.state.batteryState.batteryCharge > 20 ? "bg-green-500" : "bg-red-500"}`} 
+                            style={{width: `${robot?.state.batteryState.batteryCharge}%`}}>  
+                          </div>
                       </div>
                       <span className="font-medium">{robot?.state.batteryState.batteryCharge}%</span>
                   </td>
@@ -105,9 +108,9 @@ export const RobotDashboardForm: React.FC<RobotDashboardFormProps> = ({ robot })
                   <td className="px-4 py-2 font-semibold">Job ID</td>
                   <td className="px-4 py-2 text-right">{robot?.jobId}</td>
               </tr>
-              <tr className="bg-gray-100">
+              <tr className="bg-gray-100" onClick={() => setShowInformation(!showInformation)}>
                   <td className="px-4 py-2 font-semibold">Information</td>
-                  <td align='right' className="px-4 py-2 font-semibold" onClick={() => setShowInformation(!showInformation)}>{showInformation ? <ChevronUp /> : <ChevronDown />}</td>
+                  <td align='right' className="px-4 py-2 font-semibold">{showInformation ? <ChevronUp /> : <ChevronDown />}</td>
               </tr>
               <tr className="bg-gray-100" hidden={!showInformation}>
                   <td colSpan={2} className="px-4 pb-2 text-sm text-gray-600">

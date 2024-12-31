@@ -43,7 +43,7 @@ const GraphArea: React.FC<GraphAreaProps> = ({
     if (!originalNode) return;
 
     openDrawer(
-      'Node Form',
+      `Node (${node.nodeId})`,
       <NodeForm
         node={originalNode}
         onUpdate={(updates) => {
@@ -61,7 +61,8 @@ const GraphArea: React.FC<GraphAreaProps> = ({
     const originalEdge = graph.edges.find(e => e.edgeId === link.edgeId);
     if (!originalEdge) return;
 
-    openDrawer('Edge Form',
+    openDrawer(
+      `Edge (${link.source.nodeId} - ${link.target.nodeId})`,
       <EdgeForm
         edge={originalEdge}
         nodes={graph.nodes}
@@ -111,7 +112,7 @@ const GraphArea: React.FC<GraphAreaProps> = ({
               y1={link.source.y}
               x2={link.target.x}
               y2={link.target.y}
-              strokeWidth={0.5}  
+              strokeWidth={1}  
               stroke="#999999" 
               strokeOpacity={0.6}
               markerEnd={(link as GraphLinkData).isDirected ? `url(#arrow_${link.edgeId})` : undefined}
@@ -121,10 +122,10 @@ const GraphArea: React.FC<GraphAreaProps> = ({
                 <marker
                   id={`arrow_${link.edgeId}`}
                   viewBox="0 0 10 10"
-                  refX={calculateDynamicMidpoint(link) * 1.7}
+                  refX={calculateDynamicMidpoint(link) * 1.3}
                   refY={5}
-                  markerWidth="6"
-                  markerHeight="6"
+                  markerWidth="4"
+                  markerHeight="4"
                   opacity={0.6}
                   orient="auto-start-reverse"
                 >

@@ -10,7 +10,7 @@ const Robot: React.FC<RobotProps> = ({robot}) => {
   const { openDrawer } = useDrawer();
 
   const handleRobotClick = (robot: any) => {
-    openDrawer('Robot Dashboard', <RobotDashboardForm robot={robot} />);
+    openDrawer(`Robot (${robot.serialNumber})`, <RobotDashboardForm robot={robot} />);
   };
 
   useEffect(() => {
