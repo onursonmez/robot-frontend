@@ -15,11 +15,11 @@ const GraphArea: React.FC<GraphAreaProps> = ({
   const { updateGraph } = useGraphs();
 
   const nodes: GraphNodeData[] = graph.nodes.map(node => ({
-    x: node.nodePosition.x,
-    y: node.nodePosition.y,
     nodeId: node.nodeId,
     released: node.released,
     stationType: node.stationType,
+    x: node.nodePosition.x,
+    y: node.nodePosition.y,
     allowedDeviationXY: node.nodePosition.allowedDeviationXY,
     allowedDeviationTheta: node.nodePosition.allowedDeviationTheta,
   }));

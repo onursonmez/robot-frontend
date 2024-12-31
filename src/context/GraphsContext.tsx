@@ -41,7 +41,8 @@ export const GraphsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const updateGraph = (graph: Graph) => {
     if (!socket) return;
-    socket.emit('graphUpdate', graph);
+    console.log("graph updated", graph);
+    socket.emit('graphUpdate', {id: graph._id, updateGraphDto: graph});
   };
 
   const deleteGraph = (id: string) => {

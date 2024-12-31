@@ -1,11 +1,11 @@
 import { Graph as GraphType, Node, Edge } from '../../types';
 
 export interface GraphNodeData {
+  nodeId?: string;
+  released?: boolean;
+  stationType?: string;
   x: number;
   y: number;
-  nodeId: string;
-  released: boolean;
-  stationType: string;
   allowedDeviationXY: number;
   allowedDeviationTheta: number;
 }

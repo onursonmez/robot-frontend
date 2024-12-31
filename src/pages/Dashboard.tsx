@@ -5,6 +5,8 @@ import { useRobots } from '../context/RobotsContext';
 import GraphArea from '../components/graph/index';
 import Robot from '../components/robot/Robot';
 import RobotPose from '../components/robot/RobotPose';
+import { Graph } from '@visx/network';
+import { GraphDots } from '../components/graph/GraphDots';
 
 const defaultMapData = {
   x: 0,
@@ -116,7 +118,7 @@ export const Dashboard: React.FC = () => {
         <div>Loading...</div>
       ) : (
       <>
-      
+      <GraphDots graph={activeGraph} />
       <RobotPose />
       <div
        className='z-40'

@@ -71,7 +71,7 @@ export interface Map {
 }
 
 export interface Graph {
-  graphId: string;
+  _id: string;
   mapId: string;
   isActive: boolean;
   nodes: Node[];
@@ -79,12 +79,12 @@ export interface Graph {
 }
 
 export interface Node {
-  nodeId: string;
-  released: boolean;
-  stationType: string;
-  serialNumber: string;
+  nodeId?: string;
+  released?: boolean;
+  stationType?: string;
+  serialNumber?: string;
   nodePosition: NodePosition;
-  nodeActions: NodeAction[];
+  nodeActions?: NodeAction[];
 }
 
 export interface NodePosition {
