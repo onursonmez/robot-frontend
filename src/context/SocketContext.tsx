@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 // Socket bağlantısını bileşen dışında başlatıyoruz
-const socket = io('http://localhost:3000', {
+const socket = io('http://localhost:3001', {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttempts: 10,

@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDrawer } from '../../context/DrawerContext';
 import { useGraphs } from '../../context/GraphsContext';
 import { NodeForm } from './NodeForm';
@@ -8,12 +8,12 @@ import { CircleDot, CircleMinus, Minus } from 'lucide-react';
 import { EllipsisVertical } from 'lucide-react';
 
 export const GraphDots: React.FC = ({ graph }) => {
-   const { openDrawer, closeDrawer } = useDrawer();
-   const { updateGraph } = useGraphs();
-   const [isVisible, setIsVisible] = useState(false);
-   const graphDotsRef = useRef<HTMLDivElement>(null);
+  const { openDrawer, closeDrawer } = useDrawer();
+  const { updateGraph } = useGraphs();
+  const [isVisible, setIsVisible] = useState(false);
+  const graphDotsRef = useRef<HTMLDivElement>(null);
 
-   const toggleVisibility = () => {
+  const toggleVisibility = () => {
     setIsVisible((prev) => !prev);
   };
 
@@ -22,17 +22,17 @@ export const GraphDots: React.FC = ({ graph }) => {
       `New Node`,
       <NodeForm
         onCreate={(created) => {
-            // Yeni nodeId'yi belirle
-            const nextNodeId = Math.max(...graph.nodes.map(n => Number(n.nodeId))) + 1;
+          // Yeni nodeId'yi belirle
+          const nextNodeId = Math.max(...graph.nodes.map(n => Number(n.nodeId))) + 1;
 
-            // Yeni node'u oluştur
-            const newNode = { ...created, nodeId: String(nextNodeId) };
+          // Yeni node'u oluştur
+          const newNode = { ...created, nodeId: String(nextNodeId) };
 
-            // Yeni node'u array'e ekle
-            const updatedNodes = [...graph.nodes, newNode];
+          // Yeni node'u array'e ekle
+          const updatedNodes = [...graph.nodes, newNode];
 
-            // graph objesini güncelle
-            updateGraph({ ...graph, nodes: updatedNodes });
+          // graph objesini güncelle
+          updateGraph({ ...graph, nodes: updatedNodes });
         }}
         onClose={() => closeDrawer()}
       />
